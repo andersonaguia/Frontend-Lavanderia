@@ -16,7 +16,7 @@ import { useEffect } from "react";
 
 export const Header: React.FC = () => {
   const { theme, handleTheme } = useCustomTheme();
-  const { handleLogout, isAuthenticated } = useAuthentication();
+  const { handleLogout, isAuthenticated, userData } = useAuthentication();
 
   const navigate = useNavigate();
 

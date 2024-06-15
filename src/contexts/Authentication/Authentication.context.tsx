@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import { AuthenticationInterfaces } from "./authentication.interfaces";
+import { UserRole } from "./user_role.enum";
 
 export const AuthenticationContext = createContext<AuthenticationInterfaces>({
   isAuthenticated: false,
@@ -7,8 +8,13 @@ export const AuthenticationContext = createContext<AuthenticationInterfaces>({
   loading: false,
   decodedToken: null,
   errorMessage: "",
-  error: false,
   handleLogin: () => Promise.resolve(),
   handleLogout: () => Promise.resolve(),
-  handleCloseError: () => Promise.resolve()
+  userData: {
+    id: 0,
+    firstName: "",
+    occupation: "",
+    email: "",
+    role: UserRole.USER,
+  },
 });

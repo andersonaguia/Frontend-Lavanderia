@@ -13,6 +13,7 @@ import { Background } from "../../components/Background/Background";
 import { useCustomTheme } from "../../contexts/CustomTheme/useCustomTheme";
 import { themeLight } from "../../themes/themeLight";
 import { themeDark } from "../../themes/themeDark";
+import { toast } from "react-toastify";
 
 export const SignIn: React.FC = () => {
   const {
@@ -52,9 +53,24 @@ export const SignIn: React.FC = () => {
   }, [loading, error]);
 
   const onSubmit = async (body: SignInFormValues) => {
-    await handleLogin(body);
+    toast.promise(
+      handleLogin(body),
+      {
+        pending: 'Acessando o sistema...',
+        success: 'Sucesso',
+        error: errorMessage
+      }
+    );
   };
-
+/*
+  const functionThatReturnPromise = () =>
+    new Promise((resolve) => setTimeout(resolve, 3000));
+  toast.promise(functionThatReturnPromise, {
+    pending: "Promise is pending",
+    success: "Promise resolved 👌",
+    error: "Promise rejected 🤯",
+  });
+*/
   return (
     <>
       <ThemeProvider theme={theme == "light" ? themeLight : themeDark}>

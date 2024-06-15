@@ -19,8 +19,7 @@ export interface AuthenticationInterfaces {
   loading: boolean;
   decodedToken: any;
   errorMessage: string;
-  error: boolean;
-  handleLogin: (body: SignInFormValues) => Promise<void>;
+  handleLogin: (body: SignInFormValues) => Promise<any>;
   handleLogout: () => void;
-  handleCloseError: () => void;
+  userData: DecodedToken;
 }
