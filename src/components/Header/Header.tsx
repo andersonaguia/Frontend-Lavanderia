@@ -5,6 +5,7 @@ import {
   HeaderStyled,
   ButtonStyled,
   ContainerStyled,
+  UsernameStyled,
 } from "./Header.styles";
 import logoSolar from "../../assets/img/solar.png";
 import { BsMoonStarsFill } from "react-icons/bs";
@@ -37,8 +38,12 @@ export const Header: React.FC = () => {
       </ContainerStyled>
 
       <NavStyled>
-        <ButtonStyled className={isAuthenticated ? "logged" : "unlogged"} onClick={() => logout()}>
-          {isAuthenticated ? "Logout" : "Login"}
+        <UsernameStyled>{isAuthenticated ? `Olá, ${userData.firstName}` : null}</UsernameStyled>
+        <ButtonStyled
+          className={isAuthenticated ? "logged" : "unlogged"}
+          onClick={() => logout()}
+        >
+          {isAuthenticated ? "Sair" : "Entrar"}
         </ButtonStyled>
 
         <ButtonStyled className="btn-theme" onClick={handleTheme}>

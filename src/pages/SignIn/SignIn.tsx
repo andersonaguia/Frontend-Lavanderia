@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ContainerStyled } from "./signIn.styles";
 import { signInSchema } from "./signIn.validations";
 import { SignInFormValues } from "./signIn.types";
 import { Loading } from "../../components/Loading/Loading";
-import { CustomModal } from "../../components/Modal/Modal";
 import { useNavigate } from "react-router-dom";
 import { useAuthentication } from "../../contexts/Authentication/useAuthentication";
 import { ThemeProvider } from "styled-components";
@@ -24,53 +23,26 @@ export const SignIn: React.FC = () => {
     resolver: yupResolver(signInSchema),
   });
 
-  const [open, setOpen] = useState<boolean>(false);
   const navigate = useNavigate();
-  const {
-    loading,
-    handleLogin,
-    error,
-    errorMessage,
-    handleCloseError,
-    isAuthenticated,
-  } = useAuthentication();
+  const { loading, handleLogin, errorMessage, isAuthenticated } =
+    useAuthentication();
 
   const { theme } = useCustomTheme();
-
-  const handleOpenModal = () => {
-    setOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    handleCloseError();
-    setOpen(false);
-  };
 
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/logged");
     }
-  }, [loading, error]);
+  }, [loading]);
 
   const onSubmit = async (body: SignInFormValues) => {
-    toast.promise(
-      handleLogin(body),
-      {
-        pending: 'Acessando o sistema...',
-        success: 'Sucesso',
-        error: errorMessage
-      }
-    );
+    toast.promise(handleLogin(body), {
+      pending: "Acessando o sistema...",
+      success: "Sucesso",
+      error: errorMessage,
+    });
   };
-/*
-  const functionThatReturnPromise = () =>
-    new Promise((resolve) => setTimeout(resolve, 3000));
-  toast.promise(functionThatReturnPromise, {
-    pending: "Promise is pending",
-    success: "Promise resolved 👌",
-    error: "Promise rejected 🤯",
-  });
-*/
+
   return (
     <>
       <ThemeProvider theme={theme == "light" ? themeLight : themeDark}>
@@ -79,14 +51,6 @@ export const SignIn: React.FC = () => {
             <Loading />
           ) : (
             <>
-              {error ? (
-                <CustomModal
-                  children={<p>{errorMessage}</p>}
-                  handleOpen={handleOpenModal}
-                  handleClose={handleCloseModal}
-                  open={error}
-                />
-              ) : null}
               <ContainerStyled>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <h2>Login</h2>

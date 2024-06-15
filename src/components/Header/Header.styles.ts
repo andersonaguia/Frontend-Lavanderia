@@ -19,7 +19,8 @@ export const ContainerStyled = styled.div`
 export const NavStyled = styled.nav`
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
+  gap: 1rem;
 `;
 
 export const TitleStyled = styled.h1`
@@ -63,4 +64,8 @@ export const ButtonStyled = styled.button`
     border: none;
     background-color: transparent;
   }
+`;
+
+export const UsernameStyled = styled.p`
+  color: ${({ theme }) => theme.text.primary};
 `;
