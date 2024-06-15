@@ -39,7 +39,6 @@ export const AuthenticationProvider: React.FC<AuthenticationProviderProps> = ({
           email: decodedToken.email,
           role: decodedToken.role,
         };
-        console.log("DECODED: ", newUser);
         setUserData(newUser);
       }
     }

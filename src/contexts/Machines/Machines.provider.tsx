@@ -44,16 +44,22 @@ export const MachinesProvider: React.FC<MachinesProviderProps> = ({
       });
   };
 
-  const handleChangeMachineCommand = async (data: machineCommand) => {
-    await changeMachineCommand(data)
-      .then((res) => {
-        return res;
-      })
-      .catch((error) => {
-        if (error.code == 403) {
-          alert("Saldo insuficiente!");
+  const handleChangeMachineCommand = (data: machineCommand) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await changeMachineCommand(data);
+        resolve(response);
+      } catch (error: any) {
+        const errorMessage: string = error.message;
+        if (errorMessage.length > 0) {
+          reject(error.message);
+        } else {
+          reject(
+            "Ocorreu um erro inesperado. Informe ao administrador do sistema e tente novamente!"
+          );
         }
-      });
+      }
+    });
   };
 
   useEffect(() => {

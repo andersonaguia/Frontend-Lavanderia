@@ -4,6 +4,7 @@ import { UseMachineFormValues } from "./useMachine.types";
 import { useApartments } from "../../../contexts/Apartments/useApartments";
 import { useEffect } from "react";
 import { useMachines } from "../../../contexts/Machines/useMachines";
+import { toast } from "react-toastify";
 
 interface Props {
   machineId: number;
@@ -30,8 +31,30 @@ export const FormUseMachine: React.FC<Props> = ({ machineId, handleClose }) => {
     data.machineId = +machineId;
     data.isOn = true;
     data.apartmentId = +data.apartmentId;
-    await handleChangeMachineCommand(data);
-    handleClose();
+
+    toast.promise(
+      handleChangeMachineCommand(data)
+        .then((response) => {
+          handleClose();
+          return response;
+        })
+        .catch((error) => {
+          console.log("caiu no erro: ", error);
+          throw new Error(error);
+        }),
+      {
+        pending: "Ligando máquinas ...",
+        success: "Máquinas ligadas com sucesso!",
+        error: {
+          render({ data }: { data: any }) {
+            return (
+              data.message ||
+              "Ocorreu um erro inesperado. entre em contato com o administrador do sistema"
+            );
+          },
+        },
+      }
+    );
   };
 
   return (

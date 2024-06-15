@@ -19,7 +19,6 @@ import { useMachines } from "../../contexts/Machines/useMachines";
 import { CustomModal } from "../Modal/Modal";
 import { FormUseMachine } from "../Forms/UseMachine/UseMachine";
 import { Dialog } from "../Dialog/Dialog";
-
 interface Props {
   machineData: commandMachines;
   lastMachineHistory: lastMachineHistory;
@@ -45,7 +44,7 @@ export const Card: React.FC<Props> = (props) => {
     };
 
     setDataUse(data);
-    handleChangeMachineCommand(data);
+    //handleChangeMachineCommand(data);
   };
 
   const handleOpenModal = () => {

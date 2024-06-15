@@ -27,5 +27,5 @@ export interface MachinesInterfaces {
   handleLastMachineHistory: () => void;
   lastMachineHistory: lastMachineHistory[];
   control: boolean;
-  handleChangeMachineCommand: (data: machineCommand) => void;
+  handleChangeMachineCommand: (data: machineCommand) => Promise<any>;
 }
